@@ -1,0 +1,19 @@
+{
+    "name": "natbienetre/wp-cloudflare-zero-trust-login",
+    "description": "WordPress plugin to setup Cloudflare zero trust authentication",
+    "type": "project",
+    "require": {
+        "firebase/php-jwt": "^6.10"
+    },
+    "autoload": {
+        "psr-4": {
+            "Natbienetre\\WpCloudflareZeroTrustLogin\\": "src/"
+        }
+    },
+    "authors": [
+        {
+            "name": "Pierre PÉRONNET",
+            "email": "pierre.peronnet@gmail.com"
+        }
+    ]
+}

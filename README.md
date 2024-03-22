@@ -1,2 +1,3 @@
-# wordpress-cloudflare-zero-trust-login
+# WP Cloudflare Zero Trust Login
+
 A WordPress plugin to secure your webite with Cloudflare Zero Trust authentication.

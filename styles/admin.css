@@ -1,0 +1,12 @@
+#wpadminbar .cf0tl-logo {
+    margin-left: 5px;
+    margin-right: 0;
+}
+
+.cf0tl-logo {
+    display: inline;
+    height: 18px;
+    width: auto;
+    margin-right: 5px;
+    vertical-align: text-bottom;
+}
