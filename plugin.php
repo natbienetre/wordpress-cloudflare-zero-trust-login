@@ -4,6 +4,7 @@
  * Version:     0.0.1
  * Author:      Pierre PÉRONNET <pierre.peronnet@gmail.com>
  * Description: Configure login for zero trust users
+ * Funding URI: https://github.com/sponsors/holyhope
  */
 
 require 'autoload.php';
