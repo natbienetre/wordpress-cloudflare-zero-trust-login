@@ -51,14 +51,13 @@ class CF0TLAuthentication {
     }
 
     function authenticate( WP_User | WP_Error | null $user, string $username ): WP_User | WP_Error | null {
-        if ( is_null( $user ) || is_wp_error( $user ) ) {
-            $opts = CF0TLOptions::load();
+        $opts = CF0TLOptions::load();
 
-/*
-            if ( $opts->disable_wp_auth ) {
-                return $this->add_error( $user, 'cloudflare-authentication-failed', __( 'WordPress authentication required', 'cf0tl' ) );
-            }
-*/
+        if ( $opts->disable_wp_auth && ! is_wp_error( $user ) ) {
+            $user = null;
+        }
+
+        if ( is_null( $user ) || is_wp_error( $user ) ) {
             $cf_user = $this->_login();
             if ( is_wp_error( $cf_user ) ) {
                 if ( is_wp_error( $user ) ) {
@@ -85,12 +84,32 @@ class CF0TLAuthentication {
             return $this->add_error( null, 'cloudflare-authentication-failed', $e->getMessage() );
         }
 
-        $cf_user = get_user_by( 'email', $email );
-        if ( false === $cf_user ) {
-            return $this->add_error( null, 'cloudflare-authentication-failed', __( 'User not found in WordPress', 'cf0tl' ) );
+        $user = CF0TLUser::find_user( $email );
+
+        if ( is_wp_error( $user ) ) {
+            $opts = CF0TLOptions::load();
+
+            if ( CF0TLUser::NOT_FOUND_ERROR_CODE === $user->get_error_code() && $opts->auto_user_creation ) {
+                $username = apply_filters( 'cf0tl_auto_username', $email );
+                $password = apply_filters( 'cf0tl_auto_password', wp_generate_password() );
+                $email = apply_filters( 'cf0tl_auto_email', $email );
+
+                $user_id = wp_create_user( $username, $password, $email );
+                if ( is_wp_error( $user_id ) ) {
+                    return $this->add_error( $user_id, 'cloudflare-authentication-failed', __( 'Failed to automatically create user', 'cf0tl' ) );
+                }
+
+                if ( apply_filters( 'cf0tl_auto_add_meta', $opts->use_custom_email_field ) ) {
+                    update_user_meta( $user_id, CF0TLUser::EMAIL_METADATA_KEY, $email );
+                }
+
+                return get_user_by( 'id', $user_id );
+            }
+
+            return $user;
         }
 
-        return $cf_user;
+        return $user;
     }
 
     private function add_error( $error, int|string $code, string $message ) : WP_Error {
