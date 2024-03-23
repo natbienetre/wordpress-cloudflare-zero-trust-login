@@ -25,6 +25,12 @@ class CF0TLOptions {
      */
     public bool $disable_logout;
 
+    public bool $disable_self_email_edit;
+
+    public bool $use_custom_email_field;
+
+    public bool $auto_user_creation;
+
     public string $algo;
     public string $team;
     public string $uad;
@@ -38,6 +44,9 @@ class CF0TLOptions {
         $this->require_login_input     = $options['require_login_input'];
         $this->disable_wp_auth         = $options['disable_wp_auth'];
         $this->disable_logout          = $options['disable_logout'];
+        $this->disable_self_email_edit = $options['disable_self_email_edit'];
+        $this->use_custom_email_field  = $options['use_custom_email_field'];
+        $this->auto_user_creation      = $options['auto_user_creation'];
         $this->algo                    = $options['algo'];
         $this->team                    = $options['team'];
         $this->uad                     = $options['uad'];
@@ -51,6 +60,9 @@ class CF0TLOptions {
             'require_login_input'     => false,
             'disable_wp_auth'         => false,
             'disable_logout'          => false,
+            'disable_self_email_edit' => true,
+            'use_custom_email_field'  => false,
+            'auto_user_creation'      => false,
             'algo'                    => self::ALGO_RS256,
             'team'                    => '',
             'uad'                     => '',
@@ -72,6 +84,9 @@ class CF0TLOptions {
             'require_login_input'     => $this->require_login_input,
             'disable_wp_auth'         => $this->disable_wp_auth,
             'disable_logout'          => $this->disable_logout,
+            'disable_self_email_edit' => $this->disable_self_email_edit,
+            'use_custom_email_field'  => $this->use_custom_email_field,
+            'auto_user_creation'      => $this->auto_user_creation,
             'algo'                    => $this->algo,
             'team'                    => $this->team,
             'uad'                     => $this->uad,

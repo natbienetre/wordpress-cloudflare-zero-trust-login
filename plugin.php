@@ -17,4 +17,4 @@ CF0TLAuthentication::register_hooks();
 CF0TLLoginPage::register_hooks();
 CF0TLOptions::register_hooks();
 CF0TLScheduler::register_hooks();
-CF0TLUserProfilePage::register_hooks();
+CF0TLUser::register_hooks();

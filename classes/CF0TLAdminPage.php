@@ -76,6 +76,9 @@ class CF0TLAdminPage {
         $sanitized['require_login_input'] = isset( $value['require_login_input'] ) && $value['require_login_input'] == 'on';
         $sanitized['disable_wp_auth'] = isset( $value['disable_wp_auth'] ) && $value['disable_wp_auth'] == 'on';
         $sanitized['disable_logout'] = isset( $value['disable_logout'] ) && $value['disable_logout'] == 'on';
+        $sanitized['disable_self_email_edit'] = isset( $value['disable_self_email_edit'] ) && $value['disable_self_email_edit'] == 'on';
+        $sanitized['use_custom_email_field'] = isset( $value['use_custom_email_field'] ) && $value['use_custom_email_field'] == 'on';
+        $sanitized['auto_user_creation'] = isset( $value['auto_user_creation'] ) && $value['auto_user_creation'] == 'on';
 
         return $sanitized;
     }
@@ -131,6 +134,30 @@ class CF0TLAdminPage {
         );
 
         add_settings_field(
+            'disable_self_email_edit',
+            $this->label_for( 'cf0tl-disable-self-email-edit', esc_html_x( 'Check to disable self email edition', 'Label for the setting field', 'cf0tl' ) ),
+            array( $this, 'disable_self_email_edit_render' ),
+            self::OPTIONS_PAGE_ID,
+            self::GENERAL_SECTION,
+        );
+
+        add_settings_field(
+            'use_custom_email_field',
+            $this->label_for( 'cf0tl-use-custom-email-field', esc_html_x( 'Check to use custom email field', 'Label for the setting field', 'cf0tl' ) ),
+            array( $this, 'use_custom_email_field_render' ),
+            self::OPTIONS_PAGE_ID,
+            self::GENERAL_SECTION,
+        );
+
+        add_settings_field(
+            'auto_user_creation',
+            $this->label_for( 'cf0tl-auto-user-creation', esc_html_x( 'Automatically create user if not found', 'Label for the setting field', 'cf0tl' ) ),
+            array( $this, 'auto_user_creation_render' ),
+            self::OPTIONS_PAGE_ID,
+            self::GENERAL_SECTION,
+        );
+
+        add_settings_field(
             'team',
             $this->label_for( 'cf0tl-team', esc_html_x( 'Cloudflare Zero Trust team', 'Label for the setting field', 'cf0tl' ) . wp_required_field_indicator() ),
             array( $this, 'team_render' ),
@@ -176,25 +203,43 @@ class CF0TLAdminPage {
 
     function require_zero_trust_auth_render() {
         ?>
-        <input type="checkbox" id="cf0tl-require-zero-trust-auth" <?php checked( CF0TLOptions::load()->require_zero_trust_auth ); ?> class="code" name="<?php echo esc_attr( CF0TLOptions::OPTION_NAME . '[require_zero_trust_auth]' ); ?>" />
+        <input type="checkbox" id="cf0tl-require-zero-trust-auth" <?php checked( CF0TLOptions::load()->require_zero_trust_auth ); ?> name="<?php echo esc_attr( CF0TLOptions::OPTION_NAME . '[require_zero_trust_auth]' ); ?>" />
         <?php
     }
 
     function require_login_input_render() {
         ?>
-        <input type="checkbox" id="cf0tl-require-login-input" <?php checked( CF0TLOptions::load()->require_login_input ); ?> class="code" name="<?php echo esc_attr( CF0TLOptions::OPTION_NAME . '[require_login_input]' ); ?>" />
+        <input type="checkbox" id="cf0tl-require-login-input" <?php checked( CF0TLOptions::load()->require_login_input ); ?> name="<?php echo esc_attr( CF0TLOptions::OPTION_NAME . '[require_login_input]' ); ?>" />
         <?php
     }
 
     function disable_wp_auth_render() {
         ?>
-        <input type="checkbox" id="cf0tl-disable-wp-auth" <?php checked( CF0TLOptions::load()->disable_wp_auth ); ?> class="code" name="<?php echo esc_attr( CF0TLOptions::OPTION_NAME . '[disable_wp_auth]' ); ?>" />
+        <input type="checkbox" id="cf0tl-disable-wp-auth" <?php checked( CF0TLOptions::load()->disable_wp_auth ); ?> name="<?php echo esc_attr( CF0TLOptions::OPTION_NAME . '[disable_wp_auth]' ); ?>" />
         <?php
     }
 
     function disable_logout_render() {
         ?>
-        <input type="checkbox" id="cf0tl-disable-logout" <?php checked( CF0TLOptions::load()->disable_logout ); ?> class="code" name="<?php echo esc_attr( CF0TLOptions::OPTION_NAME . '[disable_logout]' ); ?>" />
+        <input type="checkbox" id="cf0tl-disable-logout" <?php checked( CF0TLOptions::load()->disable_logout ); ?> name="<?php echo esc_attr( CF0TLOptions::OPTION_NAME . '[disable_logout]' ); ?>" />
+        <?php
+    }
+
+    function disable_self_email_edit_render() {
+        ?>
+        <input type="checkbox" id="cf0tl-disable-self-email-edit" <?php checked( CF0TLOptions::load()->disable_self_email_edit ); ?> name="<?php echo esc_attr( CF0TLOptions::OPTION_NAME . '[disable_self_email_edit]' ); ?>" />
+        <?php
+    }
+
+    function use_custom_email_field_render() {
+        ?>
+        <input type="checkbox" id="cf0tl-use-custom-email-field" <?php checked( CF0TLOptions::load()->use_custom_email_field ); ?> name="<?php echo esc_attr( CF0TLOptions::OPTION_NAME . '[use_custom_email_field]' ); ?>" />
+        <?php
+    }
+
+    function auto_user_creation_render() {
+        ?>
+        <input type="checkbox" id="cf0tl-auto-user-creation" <?php checked( CF0TLOptions::load()->auto_user_creation ); ?> name="<?php echo esc_attr( CF0TLOptions::OPTION_NAME . '[auto_user_creation]' ); ?>" />
         <?php
     }
 
@@ -235,7 +280,7 @@ class CF0TLAdminPage {
 
     function certs_key_render() {
         ?>
-        <textarea readonly class="large-text" class="cf0tl-certs-key"><?php echo esc_html( json_encode( CF0TLOptions::load()->certs ) ); ?></textarea>
+        <textarea readonly class="large-text code" class="cf0tl-certs-key"><?php echo esc_html( json_encode( CF0TLOptions::load()->certs ) ); ?></textarea>
         <?php
     }
 }
