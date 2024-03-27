@@ -1,0 +1,58 @@
+name: WordPress Plugin
+
+on:
+  push:
+    branches:
+      - "main"
+  pull_request:
+    branches:
+      - "main"
+
+jobs:
+  yaml-lint:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - uses: ibiqlik/action-yamllint@v3
+        with:
+          config_data: |-
+            extends: default
+            rules:
+              document-start:
+                present: false
+              truthy:
+                check-keys: false
+            ignore:
+              - node_modules
+              - vendor
+
+  php-lint:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - uses: overtrue/phplint@9.1.2
+        with:
+          exclude: vendor
+
+  composer-validation:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - run: test ! -f composer.json || composer validate --strict
+
+  wordpress-phpunit:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Run tests
+        id: test
+        uses: natbienetre/test-wordpress-plugin-github-action@v1
+        with:
+          plugin_slug: cloudflare-zero-trust-login
+
+      - uses: mikepenz/action-junit-report@v3
+        if: always()
+        with:
+          report_paths: ${{ steps.test.outputs.junit_report }}
