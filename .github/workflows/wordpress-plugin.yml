@@ -1,0 +1,91 @@
+name: WordPress Plugin
+
+on:
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
+
+jobs:
+  yaml-lint:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - uses: ibiqlik/action-yamllint@v3
+        with:
+          config_data: |
+            extends: default
+            rules:
+              document-start:
+                present: false
+              truthy:
+                check-keys: false
+
+  php-lint:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - uses: michaelw90/PHP-Lint@master
+
+  composer-validation:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - run: test ! -f composer.json || composer validate --strict
+
+  wordpress-phpunit:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Start MySQL
+      run: |-
+        sudo /etc/init.d/mysql start
+        mysql -e 'CREATE DATABASE IF NOT EXISTS wordpress;' -uroot -proot
+
+    - name: Setup WP-CLI
+      uses: godaddy-wordpress/setup-wp-cli@1
+
+    - name: Get the plugin metadata
+      id: metadata
+      run: |-
+        cat <<EOF >> $GITHUB_OUTPUT
+        plugin_name=${GITHUB_REPOSITORY##*/}
+        is_composer=$(test -f composer.json && echo true || echo false)
+        EOF
+
+    - name: Install WordPress
+      run: |-
+        wp core download --path=wordpress --force --quiet
+        wp config create --path=wordpress --dbname=wordpress --dbuser=root --dbpass=root
+        wp core install --path=./wordpress --url=localhost --title=WordPress --admin_user=admin --admin_password=password --admin_email=${{ github.actor }}@github.com
+
+    - uses: actions/checkout@v3
+      with:
+        path: wordpress/wp-content/plugins/${{ steps.metadata.outputs.plugin_name }}
+
+    - name: Cache Composer packages
+      uses: actions/cache@v3
+      if: steps.metadata.outputs.is_composer == 'true'
+      with:
+        path: ./wordpress/wp-content/plugins/${{ steps.metadata.outputs.plugin_name }}/vendor
+        key: ${{ runner.os }}-php-${{ hashFiles('**/composer.lock') }}
+        restore-keys: |
+          ${{ runner.os }}-php-
+
+    - name: Install dependencies
+      if: steps.metadata.outputs.is_composer == 'true'
+      working-directory: ./wordpress/wp-content/plugins/${{ steps.metadata.outputs.plugin_name }}
+      run: test ! -f composer.json || composer install --prefer-dist --no-progress
+
+    - name: Run test suite
+      working-directory: ./wordpress/wp-content/plugins/${{ steps.metadata.outputs.plugin_name }}
+      run: |-
+        wp scaffold plugin-tests ${{ steps.metadata.outputs.plugin_name }} --dir=$(pwd) --force
+        ./bin/install-wp-tests.sh wordpress root root localhost latest true
+        phpunit --no-interaction --log-junit junit-result.xml
+
+    - name: Publish Test Report
+      uses: mikepenz/action-junit-report@v3
+      if: always()
+      with:
+        report_paths: './wordpress/wp-content/plugins/${{ steps.metadata.outputs.plugin_name }}/junit-result.xml'
