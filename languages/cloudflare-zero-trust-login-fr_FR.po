@@ -1,0 +1,29 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: Cloudflare Zero Trust Login 0.0.1\n"
+"Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/wordpress-cloudflare-zero-trust-login\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"POT-Creation-Date: 2024-03-29T11:08:23+00:00\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Language: \n"
+"X-Generator: WP-CLI 2.10.0\n"
+"X-Domain: wordpress-cloudflare-zero-trust-login\n"
+
+#. Plugin Name of the plugin
+#: cloudflare-zero-trust-login.php
+msgid "Cloudflare Zero Trust Login"
+msgstr "Cloudflare Zero Trust Login"
+
+#. Author of the plugin
+#: cloudflare-zero-trust-login.php
+msgid "Pierre PÉRONNET <pierre.peronnet@gmail.com>"
+msgstr "Pierre PÉRONNET <pierre.peronnet@gmail.com>"
+
+#. Description of the plugin
+#: cloudflare-zero-trust-login.php
+msgid "Configure login for Cloudflare Zero Trust users."
+msgstr "Configurer la connexion pour les utilisateurs de Cloudflare Zero Trust."
