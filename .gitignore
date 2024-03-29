@@ -1,0 +1,13 @@
+vendor
+languages/*.json
+languages/*.mo
+
+.phpunit.cache
+.travis.yml
+bin
+*.bak
+.phpunit.result.cache
+junit-result.xml
+
+build
+pass2cf.zip
