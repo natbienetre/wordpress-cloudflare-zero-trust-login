@@ -5,6 +5,7 @@
  * Author:      Pierre PÉRONNET <pierre.peronnet@gmail.com>
  * Description: Configure login for Cloudflare Zero Trust users.
  * Funding URI: https://github.com/sponsors/holyhope
+ * Text Domain: cf0tl
  */
 
 require 'autoload.php';

@@ -9,13 +9,16 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2024-04-02T10:34:07+00:00\n"
+"POT-Creation-Date: 2024-04-03T13:54:36+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.10.0\n"
-"X-Domain: cloudflare-zero-trust-login\n"
+"X-Domain: cf0tl\n"
 
 #. Plugin Name of the plugin
 #: cloudflare-zero-trust-login.php
+#: classes/CF0TLAdminPage.php:32
+#: classes/CF0TLAdminPage.php:33
+#: classes/CF0TLUser.php:145
 msgid "Cloudflare Zero Trust Login"
 msgstr ""
 
@@ -27,4 +30,146 @@ msgstr ""
 #. Author of the plugin
 #: cloudflare-zero-trust-login.php
 msgid "Pierre PÉRONNET <pierre.peronnet@gmail.com>"
+msgstr ""
+
+#: classes/CF0TLAdminPage.php:20
+msgid "Settings"
+msgstr ""
+
+#: classes/CF0TLAdminPage.php:60
+msgid "Team is required"
+msgstr ""
+
+#: classes/CF0TLAdminPage.php:65
+msgid "Invalid team"
+msgstr ""
+
+#: classes/CF0TLAdminPage.php:99
+msgctxt "Header for the setting section"
+msgid "General"
+msgstr ""
+
+#: classes/CF0TLAdminPage.php:106
+msgctxt "Label for the setting field"
+msgid "Check to require zero trust authentication"
+msgstr ""
+
+#: classes/CF0TLAdminPage.php:114
+msgctxt "Label for the setting field"
+msgid "Check to require login input"
+msgstr ""
+
+#: classes/CF0TLAdminPage.php:122
+msgctxt "Label for the setting field"
+msgid "Check to disable WordPress authentication"
+msgstr ""
+
+#: classes/CF0TLAdminPage.php:130
+msgctxt "Label for the setting field"
+msgid "Check to disable logout"
+msgstr ""
+
+#: classes/CF0TLAdminPage.php:138
+msgctxt "Label for the setting field"
+msgid "Check to disable self email edition"
+msgstr ""
+
+#: classes/CF0TLAdminPage.php:146
+msgctxt "Label for the setting field"
+msgid "Check to use custom email field"
+msgstr ""
+
+#: classes/CF0TLAdminPage.php:154
+msgctxt "Label for the setting field"
+msgid "Automatically create user if not found"
+msgstr ""
+
+#: classes/CF0TLAdminPage.php:162
+msgctxt "Label for the setting field"
+msgid "Cloudflare Zero Trust team"
+msgstr ""
+
+#: classes/CF0TLAdminPage.php:170
+msgctxt "Label for the setting field"
+msgid "Algorithm"
+msgstr ""
+
+#: classes/CF0TLAdminPage.php:178
+msgctxt "Label for the setting field"
+msgid "Application Audience (AUD) Tag"
+msgstr ""
+
+#: classes/CF0TLAdminPage.php:187
+msgctxt "Header for the setting section"
+msgid "Cloudflare"
+msgstr ""
+
+#: classes/CF0TLAdminPage.php:194
+msgctxt "Label for the setting field"
+msgid "Certificates key"
+msgstr ""
+
+#: classes/CF0TLAdminPage.php:255
+msgid "Automatically detect algorithm."
+msgstr ""
+
+#: classes/CF0TLAdminPage.php:269
+msgid "These settings are fetched from your Cloudflare team."
+msgstr ""
+
+#: classes/CF0TLAdminPage.php:270
+msgid "View certificates"
+msgstr ""
+
+#: classes/CF0TLAuthentication.php:71
+msgid "WordPress user does not match cloudflare user"
+msgstr ""
+
+#: classes/CF0TLAuthentication.php:99
+msgid "Failed to automatically create user"
+msgstr ""
+
+#: classes/CF0TLAuthentication.php:148
+msgid "No Cloudflare JWT found"
+msgstr ""
+
+#: classes/CF0TLAuthentication.php:161
+msgid "Invalid JWT, unexpected Application Audience (AUD) Tag"
+msgstr ""
+
+#: classes/CF0TLUser.php:24
+msgid "CloudFlare Zero Trust email"
+msgstr ""
+
+#: classes/CF0TLUser.php:75
+msgid "Failed to delete the email."
+msgstr ""
+
+#: classes/CF0TLUser.php:81
+msgid "Please enter a valid email address."
+msgstr ""
+
+#: classes/CF0TLUser.php:97
+msgid "Email already in use."
+msgstr ""
+
+#: classes/CF0TLUser.php:104
+msgid "Failed to update the email to <span class=\"%s\">%s<span>."
+msgstr ""
+
+#: classes/CF0TLUser.php:113
+#: classes/CF0TLUser.php:124
+msgid "User not found"
+msgstr ""
+
+#: classes/CF0TLUser.php:128
+msgid "Multiple users found"
+msgstr ""
+
+#: classes/CF0TLUser.php:147
+msgid "Authenticated via <a href=\"https://dash.cloudflare.com\" target=\"_blank\">Cloudflare Zero Trust</a>."
+msgstr ""
+
+#: classes/CF0TLUser.php:150
+msgid "Email"
 msgstr ""
