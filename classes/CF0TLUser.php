@@ -101,7 +101,12 @@ class CF0TLUser {
         $previous_email = $this->get_registered_email( $user->ID );
 
         if ( $previous_email != $email && false === update_user_meta( $user->ID, self::EMAIL_METADATA_KEY, $email ) ) {
-            $errors->add( 'cf0tl_email', '<img src="' . esc_url( plugin_dir_url( CF0TL_PLUGIN_FILE ) . 'images/cloudflare-logo.png' ) . '" alt="' . esc_attr__( 'CloudFlare Zero Trust', 'cft0l' ) . '" class="cf0tl-logo" />' . sprintf( __( 'Failed to update the email to <span class="%s">%s<span>.', 'cf0tl' ), 'email', $email ) );
+            $errors->add(
+                'cf0tl_email',
+                '<img src="' . esc_url( plugin_dir_url( CF0TL_PLUGIN_FILE ) . 'images/cloudflare-logo.png' ) . '" alt="' . esc_attr__( 'CloudFlare Zero Trust', 'cft0l' ) . '" class="cf0tl-logo" />' .
+                /* translators: %1$s is the class name, %2$s is the email */
+                sprintf( __( 'Failed to update the email to <span class="%1$s">%2$s<span>.', 'cf0tl' ), 'email', $email )
+            );
             return;
         }
     }

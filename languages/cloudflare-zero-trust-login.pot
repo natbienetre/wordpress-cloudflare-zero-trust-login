@@ -9,7 +9,7 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2024-04-03T13:54:36+00:00\n"
+"POT-Creation-Date: 2024-04-04T11:08:09+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.10.0\n"
 "X-Domain: cf0tl\n"
@@ -18,7 +18,7 @@ msgstr ""
 #: cloudflare-zero-trust-login.php
 #: classes/CF0TLAdminPage.php:32
 #: classes/CF0TLAdminPage.php:33
-#: classes/CF0TLUser.php:145
+#: classes/CF0TLUser.php:150
 msgid "Cloudflare Zero Trust Login"
 msgstr ""
 
@@ -153,23 +153,24 @@ msgstr ""
 msgid "Email already in use."
 msgstr ""
 
-#: classes/CF0TLUser.php:104
-msgid "Failed to update the email to <span class=\"%s\">%s<span>."
+#. translators: %1$s is the class name, %2$s is the email
+#: classes/CF0TLUser.php:108
+msgid "Failed to update the email to <span class=\"%1$s\">%2$s<span>."
 msgstr ""
 
-#: classes/CF0TLUser.php:113
-#: classes/CF0TLUser.php:124
+#: classes/CF0TLUser.php:118
+#: classes/CF0TLUser.php:129
 msgid "User not found"
 msgstr ""
 
-#: classes/CF0TLUser.php:128
+#: classes/CF0TLUser.php:133
 msgid "Multiple users found"
 msgstr ""
 
-#: classes/CF0TLUser.php:147
+#: classes/CF0TLUser.php:152
 msgid "Authenticated via <a href=\"https://dash.cloudflare.com\" target=\"_blank\">Cloudflare Zero Trust</a>."
 msgstr ""
 
-#: classes/CF0TLUser.php:150
+#: classes/CF0TLUser.php:155
 msgid "Email"
 msgstr ""
