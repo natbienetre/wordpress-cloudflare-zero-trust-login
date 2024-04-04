@@ -17,7 +17,7 @@ class CF0TLAdminPage {
     }
 
     function plugin_settings( array $links ): array {
-		array_unshift( $links, '<a href="' . esc_url( $this->get_url() ) . '&amp;sub=options">' . __( 'Settings', 'redirection' ) . '</a>' );
+		array_unshift( $links, '<a href="' . esc_url( $this->get_url() ) . '&amp;sub=options">' . __( 'Settings', 'cf0tl' ) . '</a>' );
 		return $links;
 	}
 
