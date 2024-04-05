@@ -61,10 +61,10 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
-      - uses: natbienetre/test-wordpress-languages-github-action@v3.0.0
+      - uses: holyhope/test-wordpress-languages-github-action@v4.0.0
         id: languages
         with:
-          plugin_slug: cloudflare-zero-trust-login
+          slug: cloudflare-zero-trust-login
           exclude: |-
             .github
       - uses: actions/upload-artifact@v4
