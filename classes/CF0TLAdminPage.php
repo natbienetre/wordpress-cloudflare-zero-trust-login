@@ -57,12 +57,12 @@ class CF0TLAdminPage {
         $sanitized = (array) CF0TLOptions::load();
 
         if ( empty( $value['team'] ) ) {
-            add_settings_error( CF0TLOptions::OPTION_NAME, 'empty_team', __( 'Team is required', 'cf0tl' ) );
+            add_settings_error( CF0TLOptions::OPTION_NAME, 'empty_team', __( 'An empty team is not allowed', 'cf0tl' ) );
             $sanitized['certs'] = array();
         } else {
             $certs = CF0TLOptions::load_certificates( $value['team'] );
             if ( is_wp_error( $certs ) ) {
-                add_settings_error( CF0TLOptions::OPTION_NAME, 'invalid_team', __( 'Invalid team', 'cf0tl' ) );
+                add_settings_error( CF0TLOptions::OPTION_NAME, 'invalid_team', __( 'The team is invalid', 'cf0tl' ) );
                 $sanitized['certs'] = array();
             } else {
                 $sanitized['certs'] = $certs;
@@ -111,7 +111,7 @@ class CF0TLAdminPage {
 
         add_settings_field(
             'require_login_input_render',
-            $this->label_for( 'cf0tl-require-login-input', esc_html_x( 'Check to require login input', 'Label for the setting field', 'cf0tl' ) ),
+            $this->label_for( 'cf0tl-require-login-input', esc_html_x( 'Check to require username on login', 'Label for the setting field', 'cf0tl' ) ),
             array( $this, 'require_login_input_render' ),
             self::OPTIONS_PAGE_ID,
             self::GENERAL_SECTION,
