@@ -68,7 +68,7 @@ class CF0TLAuthentication {
             }
 
             if ( $opts->require_login_input && $cf_user->user_login !== $username ) {
-                return new WP_Error( 'cloudflare-authentication-failed', __( 'WordPress user does not match cloudflare user', 'cf0tl' ) );
+                return new WP_Error( 'cloudflare-authentication-failed', __( 'The WordPress user does not match cloudflare one', 'cf0tl' ) );
             }
 
             return $cf_user;
