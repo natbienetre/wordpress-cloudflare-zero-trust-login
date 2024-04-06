@@ -31,8 +31,6 @@ jobs:
     steps:
       - uses: actions/checkout@v2
       - uses: overtrue/phplint@9.1.2
-        with:
-          exclude: vendor
 
   composer-validation:
     runs-on: ubuntu-latest
@@ -48,7 +46,7 @@ jobs:
 
       - name: Run tests
         id: test
-        uses: natbienetre/test-wordpress-plugin-github-action@v1
+        uses: holyhope/test-wordpress-plugin-github-action@v2.0.0
         with:
           plugin_slug: cloudflare-zero-trust-login
 
