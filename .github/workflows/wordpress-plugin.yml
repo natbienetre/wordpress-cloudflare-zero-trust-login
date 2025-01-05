@@ -59,7 +59,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
-      - uses: holyhope/test-wordpress-languages-github-action@v4.0.0
+      - uses: holyhope/test-wordpress-languages-github-action@v4.0.1
         id: languages
         with:
           slug: cloudflare-zero-trust-login
