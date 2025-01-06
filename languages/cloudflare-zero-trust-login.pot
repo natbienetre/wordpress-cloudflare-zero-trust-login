@@ -1,4 +1,4 @@
-# Copyright (C) 2024 Pierre PÉRONNET <pierre.peronnet@gmail.com>
+# Copyright (C) 2025 Pierre PÉRONNET <pierre.peronnet@gmail.com>
 # This file is distributed under the same license as the Cloudflare Zero Trust Login plugin.
 msgid ""
 msgstr ""
@@ -9,9 +9,9 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2024-04-06T12:10:48+00:00\n"
+"POT-Creation-Date: 2025-01-06T12:10:48+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
-"X-Generator: WP-CLI 2.10.0\n"
+"X-Generator: WP-CLI 2.11.0\n"
 "X-Domain: cf0tl\n"
 
 #. Plugin Name of the plugin
