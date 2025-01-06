@@ -46,7 +46,7 @@ jobs:
 
       - name: Run tests
         id: test
-        uses: holyhope/test-wordpress-plugin-github-action@v2.0.0
+        uses: holyhope/test-wordpress-plugin-github-action@v2.0.2
         with:
           plugin_slug: cloudflare-zero-trust-login
 
