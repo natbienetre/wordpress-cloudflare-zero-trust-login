@@ -7,7 +7,9 @@
 - [x] 2.1 Bump `actions/checkout` in `wordpress-plugin.yml` (currently `@v2` for most jobs, `@v3` for `wordpress-phpunit`) to the latest stable major across all jobs, and verify the workflow YAML is still valid (`yamllint`).
 - [x] 2.2 Bump `overtrue/phplint@9.1.2`, `holyhope/test-wordpress-plugin-github-action@v2.0.2`, `mikepenz/action-junit-report@v3`, `holyhope/test-wordpress-languages-github-action@v4.0.1` to their latest stable released versions, confirming via each action's README/changelog that step inputs/outputs used in this workflow are unchanged, and verify the workflow YAML is still valid. Leave `ibiqlik/action-yamllint@v3` and `actions/upload-artifact@v4` unchanged if they already resolve to the latest major.
 - [x] 2.3 Declare `"php": ">=8.3"` in `composer.json`'s `require` (per design.md, matching WordPress.org's recommended baseline) and set `wordpress-phpunit`'s `holyhope/test-wordpress-plugin-github-action` step to `php_version: "8.3"` explicitly instead of relying on the action's implicit default; verify the workflow YAML is still valid.
-- [ ] 2.4 Push the branch and confirm `wordpress-plugin.yml` runs green in CI with the bumped Action versions and the explicit PHP 8.3 baseline (verification: GitHub Actions run status on the PR).
+- [x] 2.4 Push the branch and confirm `wordpress-plugin.yml` runs green in CI with the bumped Action versions and the explicit PHP 8.3 baseline (verification: GitHub Actions run status on the PR).
+
+  **Result**: confirmed on run https://github.com/natbienetre/wordpress-cloudflare-zero-trust-login/actions/runs/35100516337 — all 6 jobs pass (`yaml-lint`, `language-files-up-to-date`, `php-lint`, `wordpress-phpunit`, `composer-validation`, plus the `JUnit Test Report` check).
 
 ## 3. Composer dependency bumps
 
@@ -33,6 +35,12 @@
 
 ## 4. Full verification
 
-- [ ] 4.1 Run the full CI pipeline (`wordpress-plugin.yml`) against the updated dependencies and Actions on the change's PR, and verify `wordpress-phpunit`, `php-lint`, `yaml-lint`, and `composer-validation` all pass. Note the `language-files-up-to-date` job's result separately — if it fails, check whether it's pre-existing/unrelated (compare against a baseline run on the unmodified branch) before treating it as blocking.
-- [ ] 4.2 Run `composer audit` after all bumps and confirm the two currently-known advisories (PHPUnit CVE-2026-24765, symfony/process CVE-2024-51736) are resolved or explicitly explained if still present.
-- [ ] 4.3 Document in the PR description any dependency deliberately left on a fallback version (per 3.6) and the outcome of the `firebase/php-jwt` key-size verification (per 3.4), so both are discoverable later.
+- [x] 4.1 Run the full CI pipeline (`wordpress-plugin.yml`) against the updated dependencies and Actions on the change's PR, and verify `wordpress-phpunit`, `php-lint`, `yaml-lint`, and `composer-validation` all pass. Note the `language-files-up-to-date` job's result separately — if it fails, check whether it's pre-existing/unrelated (compare against a baseline run on the unmodified branch) before treating it as blocking.
+
+  **Result**: all pass on run 35100516337. `language-files-up-to-date` initially failed for a real reason (not pre-existing drift): bumping `wp-cli/wp-cli-bundle` to 2.12.0 changed `wp i18n make-pot` output to add a missing `#, php-format` flag on `classes/CF0TLUser.php:108`'s string — fixed by applying CI's own generated patch artifact to `languages/cloudflare-zero-trust-login.pot` and `-fr_FR.po`. `wordpress-phpunit` also initially failed twice, for two distinct dependency-bump-caused reasons documented in 3.7's and 3.6's correction notes (PHP-8.4-requiring symfony packages locked against local PHP 8.5; then a PHPUnit 11 test-discovery incompatibility with the CI action's scaffolded canary test).
+- [x] 4.2 Run `composer audit` after all bumps and confirm the two currently-known advisories (PHPUnit CVE-2026-24765, symfony/process CVE-2024-51736) are resolved or explicitly explained if still present.
+
+  **Result**: `composer audit` → "No security vulnerability advisories found." Both advisories resolved: PHPUnit CVE-2026-24765 by the 9.6.33+ constraint (still satisfied despite the ^11→^9.6.33 fallback, since the advisory's fix version is below 9.6.33), symfony/process CVE-2024-51736 transitively resolved via the `wp-cli/wp-cli-bundle` bump.
+- [x] 4.3 Document in the PR description any dependency deliberately left on a fallback version (per 3.6) and the outcome of the `firebase/php-jwt` key-size verification (per 3.4), so both are discoverable later.
+
+  **Result**: documented in the PR description (see below) — `phpunit/phpunit` fallback to `^9.6.33` (PHPUnit 11's stricter test discovery rejects the CI action's scaffolded canary test) and the `firebase/php-jwt` 7.x key-size verification (RSA_KEY_MIN_LENGTH=2048 satisfied by Cloudflare Access's standard RS256 JWKS keys, verified via vendor source inspection since no automated test covers this path).
