@@ -42,6 +42,7 @@ jobs:
       - run: test ! -f composer.json || composer validate --strict
 
   wordpress-phpunit:
+    name: WordPress PHPUnit
     runs-on: ubuntu-latest
     permissions:
       checks: write
