@@ -149,6 +149,7 @@ msgstr "Email"
 
 #. translators: %1$s is the class name, %2$s is the email
 #: classes/CF0TLUser.php:108
+#, php-format
 msgid "Failed to update the email to <span class=\"%1$s\">%2$s<span>."
 msgstr "Échec de la mise à jour de l'email en <span class=\"%1$s\">%2$s<span>."
 
