@@ -15,7 +15,8 @@ jobs:
   yaml-lint:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v7
+      - name: Check out repository
+        uses: actions/checkout@v7
       - uses: ibiqlik/action-yamllint@v3
         with:
           config_data: |-
@@ -42,6 +43,7 @@ jobs:
       - run: test ! -f composer.json || composer validate --strict
 
   wordpress-phpunit:
+    name: WordPress PHPUnit
     runs-on: ubuntu-latest
     permissions:
       checks: write
