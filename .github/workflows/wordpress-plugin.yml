@@ -8,6 +8,10 @@ on:
     branches:
       - "main"
 
+concurrency:
+  group: "${{ github.workflow }}-${{ github.ref }}"
+  cancel-in-progress: true
+
 permissions:
   contents: read
 
@@ -15,7 +19,8 @@ jobs:
   yaml-lint:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v7
+      - name: Check out repository
+        uses: actions/checkout@v7
       - uses: ibiqlik/action-yamllint@v3
         with:
           config_data: |-
@@ -30,6 +35,7 @@ jobs:
               - vendor
 
   php-lint:
+    name: PHP lint
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v7
@@ -42,6 +48,7 @@ jobs:
       - run: test ! -f composer.json || composer validate --strict
 
   wordpress-phpunit:
+    name: WordPress PHPUnit
     runs-on: ubuntu-latest
     permissions:
       checks: write
@@ -52,7 +59,8 @@ jobs:
 
       - name: Run tests
         id: test
-        uses: holyhope/test-wordpress-plugin-github-action@v2.0.4
+        uses: >-  # v2.0.4
+          holyhope/test-wordpress-plugin-github-action@1e7895de5852603e93a8e92afe9d008b76521355
         with:
           plugin_slug: cloudflare-zero-trust-login
           php_version: "8.3"
@@ -73,7 +81,8 @@ jobs:
           slug: cloudflare-zero-trust-login
           exclude: |-
             .github
-      - uses: actions/upload-artifact@v7
+      # v7
+      - uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a
         if: always()
         with:
           name: language-patch
