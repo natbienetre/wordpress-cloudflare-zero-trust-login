@@ -65,34 +65,14 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
-        with:
-          fetch-depth: 0
-      - name: Check for translatable changes
-        id: translatable
-        env:
-          BASE_SHA: >-
-            ${{ github.event.pull_request.base.sha || github.event.before }}
-        run: |-
-          if git diff --quiet "$BASE_SHA" HEAD -- \
-            ':(glob)**/*.php' \
-            ':(glob)**/*.js' \
-            ':(glob)**/block.json' \
-            ':(glob)**/theme.json' \
-            ':(glob)languages/*.po' \
-            ':(glob)languages/*.pot'; then
-            echo "changed=false" >> "$GITHUB_OUTPUT"
-          else
-            echo "changed=true" >> "$GITHUB_OUTPUT"
-          fi
       - uses: holyhope/test-wordpress-languages-github-action@v4.0.1
-        if: steps.translatable.outputs.changed == 'true'
         id: languages
         with:
           slug: cloudflare-zero-trust-login
           exclude: |-
             .github
       - uses: actions/upload-artifact@v4
-        if: always() && steps.translatable.outputs.changed == 'true'
+        if: always()
         with:
           name: language-patch
           path: ${{ steps.languages.outputs.patch_path }}
