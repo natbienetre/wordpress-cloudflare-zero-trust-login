@@ -22,7 +22,7 @@
     "require-dev": {
         "wp-cli/wp-cli-bundle": "^2.12",
         "phpunit/phpunit": "^9.6.33",
-        "yoast/phpunit-polyfills": "^2"
+        "yoast/phpunit-polyfills": "^4"
     },
     "config": {
         "allow-plugins": {
