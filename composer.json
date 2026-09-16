@@ -15,6 +15,7 @@
         }
     ],
     "require": {
+        "php": ">=8.3",
         "firebase/php-jwt": "^6.10",
         "composer/installers": "^2.2"
     },

@@ -1,12 +1,12 @@
 ## 1. Dependabot configuration
 
-- [ ] 1.1 Create `.github/dependabot.yml` with `composer` and `github-actions` ecosystem entries (weekly schedule, `open-pull-requests-limit: 10` each), and verify the file is valid YAML (`yamllint .github/dependabot.yml` or the repo's `ibiqlik/action-yamllint` config).
+- [x] 1.1 Create `.github/dependabot.yml` with `composer` and `github-actions` ecosystem entries (weekly schedule, `open-pull-requests-limit: 10` each), and verify the file is valid YAML (`yamllint .github/dependabot.yml` or the repo's `ibiqlik/action-yamllint` config).
 
 ## 2. GitHub Actions version bumps
 
-- [ ] 2.1 Bump `actions/checkout` in `wordpress-plugin.yml` (currently `@v2` for most jobs, `@v3` for `wordpress-phpunit`) to the latest stable major across all jobs, and verify the workflow YAML is still valid (`yamllint`).
-- [ ] 2.2 Bump `overtrue/phplint@9.1.2`, `holyhope/test-wordpress-plugin-github-action@v2.0.2`, `mikepenz/action-junit-report@v3`, `holyhope/test-wordpress-languages-github-action@v4.0.1` to their latest stable released versions, confirming via each action's README/changelog that step inputs/outputs used in this workflow are unchanged, and verify the workflow YAML is still valid. Leave `ibiqlik/action-yamllint@v3` and `actions/upload-artifact@v4` unchanged if they already resolve to the latest major.
-- [ ] 2.3 Declare `"php": ">=8.3"` in `composer.json`'s `require` (per design.md, matching WordPress.org's recommended baseline) and set `wordpress-phpunit`'s `holyhope/test-wordpress-plugin-github-action` step to `php_version: "8.3"` explicitly instead of relying on the action's implicit default; verify the workflow YAML is still valid.
+- [x] 2.1 Bump `actions/checkout` in `wordpress-plugin.yml` (currently `@v2` for most jobs, `@v3` for `wordpress-phpunit`) to the latest stable major across all jobs, and verify the workflow YAML is still valid (`yamllint`).
+- [x] 2.2 Bump `overtrue/phplint@9.1.2`, `holyhope/test-wordpress-plugin-github-action@v2.0.2`, `mikepenz/action-junit-report@v3`, `holyhope/test-wordpress-languages-github-action@v4.0.1` to their latest stable released versions, confirming via each action's README/changelog that step inputs/outputs used in this workflow are unchanged, and verify the workflow YAML is still valid. Leave `ibiqlik/action-yamllint@v3` and `actions/upload-artifact@v4` unchanged if they already resolve to the latest major.
+- [x] 2.3 Declare `"php": ">=8.3"` in `composer.json`'s `require` (per design.md, matching WordPress.org's recommended baseline) and set `wordpress-phpunit`'s `holyhope/test-wordpress-plugin-github-action` step to `php_version: "8.3"` explicitly instead of relying on the action's implicit default; verify the workflow YAML is still valid.
 - [ ] 2.4 Push the branch and confirm `wordpress-plugin.yml` runs green in CI with the bumped Action versions and the explicit PHP 8.3 baseline (verification: GitHub Actions run status on the PR).
 
 ## 3. Composer dependency bumps
